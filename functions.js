@@ -136,6 +136,37 @@ console.log(swissArline);
 const flightData = [583, "George Cooper"]
 // bookNew.apply(swissArline, flightData)
 bookNew.call(swissArline, ...flightData)
-
 console.log(swissArline);
+
+
+// bind
+const bookEW= bookNew.bind(eurowings)
+const bookLH = bookNew.bind(lufthansa)
+const bookLX = bookNew.bind(swissArline)
+const bookEW23 = bookNew.bind(eurowings,23)
+
+bookEW(778, "Williams Adam")
+bookEW23("Clare Tech")
+
+const result = lufthansa.bookings
+
+let text = "<ul>"
+for(const res of result){
+  for(const [key, value] of Object.entries(res)){
+    text += `<li>${key}: ${value}</li>`
+  }
+}
+text += "</ul>"
+document.getElementById("demo").innerHTML=text
+
+// use case for bind
+// with event listeners
+lufthansa.planes = 300
+lufthansa.buyPlanes = function(){
+  this.planes++
+}
+console.log(lufthansa);
+
+
+
 
