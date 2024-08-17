@@ -133,40 +133,61 @@ bookNew.call(swissArline, 940, "Debby Ray");
 console.log(swissArline);
 
 // apply method
-const flightData = [583, "George Cooper"]
+const flightData = [583, "George Cooper"];
 // bookNew.apply(swissArline, flightData)
-bookNew.call(swissArline, ...flightData)
+bookNew.call(swissArline, ...flightData);
 console.log(swissArline);
 
-
 // bind
-const bookEW= bookNew.bind(eurowings)
-const bookLH = bookNew.bind(lufthansa)
-const bookLX = bookNew.bind(swissArline)
-const bookEW23 = bookNew.bind(eurowings,23)
+const bookEW = bookNew.bind(eurowings);
+const bookLH = bookNew.bind(lufthansa);
+const bookLX = bookNew.bind(swissArline);
+const bookEW23 = bookNew.bind(eurowings, 23);
 
-bookEW(778, "Williams Adam")
-bookEW23("Clare Tech")
+bookEW(778, "Williams Adam");
+bookEW23("Clare Tech");
 
-const result = lufthansa.bookings
+const result = lufthansa.bookings;
 
-let text = "<ul>"
-for(const res of result){
-  for(const [key, value] of Object.entries(res)){
-    text += `<li>${key}: ${value}</li>`
+let text = "<ul>";
+for (const res of result) {
+  for (const [key, value] of Object.entries(res)) {
+    text += `<li>${key}: ${value}</li>`;
   }
 }
-text += "</ul>"
-document.getElementById("demo").innerHTML=text
+text += "</ul>";
+document.getElementById("demo").innerHTML = text;
 
 // use case for bind
 // with event listeners
-lufthansa.planes = 300
-lufthansa.buyPlanes = function(){
-  this.planes++
+lufthansa.planes = 300;
+lufthansa.buyPlanes = function () {
+  this.planes++;
+  console.log(lufthansa);
+};
+
+document
+  .querySelector(".buy")
+  .addEventListener("click", lufthansa.buyPlanes.bind(lufthansa));
+
+const addTax = (rate, value) => value + value + rate;
+console.log(addTax(10, 200));
+
+const addVAT = addTax.bind(null, 0.23);
+console.log(addVAT(100));
+
+// function taxPerson1(rate, price) {
+//   rate + rate * price;
+//   function taxPerson2(callback){
+//     console.log(callback(0.1, 50));
+//   }
+//   taxPerson2(taxPerson1)
+// }
+// taxPerson1()
+const addTaxRate=function(rate){
+  return function(value){
+    return value + value * rate
+  }
 }
-console.log(lufthansa);
-
-
-
-
+const addVAT2 = addTaxRate(0.23)
+console.log(addVAT2(100));
